@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change to your branch if necessary
+      - main  # Change if using a different branch
 
 permissions:
   contents: read
@@ -13,7 +13,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -22,12 +21,12 @@ jobs:
         run: npm install
 
       - name: Build Project
-        run: npm run build  # Change to "vite build" if using Vite
+        run: npm run build  # Use "vite build" if necessary
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist  # Change to "build" for Create React App
+          path: ./dist  # Ensure this matches your Vite output directory
 
   deploy:
     needs: build
@@ -37,6 +36,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      - name: Checkout Repository  # This was missing!
+        uses: actions/checkout@v4
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
