@@ -1,6 +1,5 @@
 {
-  "homepage": "https://billahdotdev.github.io/me/",
-
+  "homepage": "https://billahdotdev.github.io/Me/",
   "name": "my-app",
   "private": true,
   "version": "0.0.0",
@@ -12,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
