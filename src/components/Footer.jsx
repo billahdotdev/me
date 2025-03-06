@@ -28,12 +28,15 @@ const Footer = () => {
             <a href="#" className="social-icon" aria-label="X (formerly Twitter)">
               <span className="icon-x"></span>
             </a>
-           
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p> {currentYear} Built by dreamers: Masum Billah. For dreamers. Deeply indebted to the individuals who I learned from. "NO RIGHT RESERVED". </p>
+          <p>
+            {" "}
+            {currentYear} Built by dreamers: Masum Billah. For dreamers. Deeply indebted to the individuals who I
+            learned from. "NO RIGHT RESERVED".{" "}
+          </p>
         </div>
       </div>
     </footer>

@@ -7,6 +7,7 @@ import ServicesSection from "./ServicesSection"
 import ResourcesSection from "./ResourcesSection"
 import ContactSection from "./ContactSection"
 import Footer from "./Footer"
+import "../styles/Layout.css"
 
 const Layout = () => {
   const [activeSection, setActiveSection] = useState("about")
@@ -26,7 +27,9 @@ const Layout = () => {
     // Smooth scroll to the section with offset
     const element = document.getElementById(`section-${sectionId}`)
     if (element) {
-      const headerHeight = 80 // Approximate header height
+      // Get the computed header height from CSS variable
+      const headerHeight =
+        Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 80
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
       const offsetPosition = elementPosition - headerHeight
 
@@ -40,24 +43,25 @@ const Layout = () => {
   // Update the useEffect hook to improve transitions
   useEffect(() => {
     const observers = {}
+    const observerOptions = {
+      threshold: [0.1, 0.3, 0.5], // Multiple thresholds for better detection
+      rootMargin: "-100px 0px -20% 0px", // Adjusted rootMargin for better section detection
+    }
 
     sections.forEach((section) => {
       const ref = sectionRefs.current[section.id]
       if (ref) {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            setIsIntersecting((prev) => ({
-              ...prev,
-              [section.id]: entry.isIntersecting,
-            }))
+        const observer = new IntersectionObserver(([entry]) => {
+          setIsIntersecting((prev) => ({
+            ...prev,
+            [section.id]: entry.isIntersecting,
+          }))
 
-            // Auto-update active section based on scroll
-            if (entry.isIntersecting) {
-              setActiveSection(section.id)
-            }
-          },
-          { threshold: 0.3, rootMargin: "-100px 0px" }, // Adjusted rootMargin for smoother transitions
-        )
+          // Auto-update active section based on scroll
+          if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+            setActiveSection(section.id)
+          }
+        }, observerOptions)
 
         observer.observe(ref)
         observers[section.id] = observer

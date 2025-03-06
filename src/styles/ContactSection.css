@@ -146,3 +146,17 @@
   }
 }
 
+/* Update WhatsApp button in Contact section to match */
+.contact-form .whatsapp-button {
+  background-color: var(--card-bg) !important;
+  color: var(--primary) !important;
+  box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--shadow-highlight);
+  width: 100%;
+}
+
+.contact-form .whatsapp-button:hover {
+  background-color: var(--card-bg) !important;
+  transform: translateY(-2px);
+  box-shadow: 7px 7px 14px var(--shadow-color), -7px -7px 14px var(--shadow-highlight);
+}
+

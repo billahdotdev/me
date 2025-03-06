@@ -17,11 +17,21 @@ const Header = ({ sections, activeSection, onNavClick }) => {
       }
     }
 
+    const handleResize = () => {
+      // Close mobile menu when window is resized to desktop size
+      if (window.innerWidth > 768 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
     window.addEventListener("scroll", handleScroll)
+    window.addEventListener("resize", handleResize)
+
     return () => {
       window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleResize)
     }
-  }, [])
+  }, [isMobileMenuOpen])
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -51,7 +61,12 @@ const Header = ({ sections, activeSection, onNavClick }) => {
         </nav>
 
         {/* Mobile Navigation Toggle */}
-        <button className="mobile-menu-toggle neomorphic-button" onClick={toggleMobileMenu}>
+        <button
+          className="mobile-menu-toggle neomorphic-button"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle mobile menu"
+          aria-expanded={isMobileMenuOpen}
+        >
           <span className={`hamburger ${isMobileMenuOpen ? "open" : ""}`}></span>
         </button>
 

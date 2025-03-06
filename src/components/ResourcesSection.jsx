@@ -1,3 +1,5 @@
+"use client"
+
 import "../styles/ResourcesSection.css"
 
 const ResourcesSection = () => {
@@ -34,7 +36,7 @@ const ResourcesSection = () => {
   const handleWhatsAppConnect = () => {
     const message = "Hi, I'm interested in receiving more resources and updates from you."
     const whatsappUrl = `https://wa.me/880171526536?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, "_blank")
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer")
   }
 
   return (
@@ -53,13 +55,13 @@ const ResourcesSection = () => {
         {resources.map((resource, index) => (
           <div key={index} className="resource-card neomorphic">
             <div className="resource-image">
-              <img src={resource.image || "/placeholder.svg"} alt={resource.title} />
+              <img src={resource.image || "/placeholder.svg"} alt={`${resource.title} thumbnail`} />
               <span className="resource-category">{resource.category}</span>
             </div>
             <div className="resource-content">
               <h3>{resource.title}</h3>
               <p>{resource.description}</p>
-              <a href={resource.link} className="resource-link">
+              <a href={resource.link} className="resource-link" aria-label={`Read more about ${resource.title}`}>
                 Read More
               </a>
             </div>
@@ -74,8 +76,8 @@ const ResourcesSection = () => {
           improve your web development skills.
         </p>
         <button onClick={handleWhatsAppConnect} className="neomorphic-button whatsapp-button">
-          <span className="whatsapp-icon"></span>
-          Connect on WhatsApp
+          <span className="whatsapp-icon" aria-hidden="true"></span>
+          Let's Chat
         </button>
       </div>
     </div>

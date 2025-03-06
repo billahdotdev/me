@@ -3,6 +3,8 @@
   grid-template-columns: 1fr 2fr;
   gap: 2rem;
   align-items: start;
+  margin-top: calc(var(--header-height) + 2rem); /* Add margin to prevent overlap */
+  padding: 2rem 0; /* Add padding for better spacing */
 }
 
 .about-image-container {
@@ -146,5 +148,57 @@
   .about-stats {
     grid-template-columns: 1fr;
   }
+}
+
+/* Ensure the section has proper spacing */
+.container {
+  padding-top: 1rem;
+}
+
+/* Update social icons styling */
+.social-icons {
+  display: flex;
+  gap: 2rem; /* Increase gap between icons */
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.social-icon {
+  width: 45px; /* Slightly larger icons */
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card-bg);
+  box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--shadow-highlight);
+  transition: var(--transition);
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+  color: var(--primary-light);
+}
+
+/* Fix icon visibility */
+.icon-github::before,
+.icon-linkedin::before,
+.icon-x::before {
+  font-family: "Font Awesome 5 Brands";
+  font-size: 1.5rem;
+}
+
+.icon-github::before {
+  content: "\f09b";
+}
+
+.icon-linkedin::before {
+  content: "\f08c";
+}
+
+.icon-x::before {
+  content: "\f099";
 }
 

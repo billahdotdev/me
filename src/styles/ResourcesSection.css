@@ -133,6 +133,19 @@
   font-size: 1rem;
 }
 
+/* Update WhatsApp button in Resources section to match */
+.resources-cta .whatsapp-button {
+  background-color: var(--card-bg) !important;
+  color: var(--primary) !important;
+  box-shadow: 5px 5px 10px var(--shadow-color), -5px -5px 10px var(--shadow-highlight);
+}
+
+.resources-cta .whatsapp-button:hover {
+  background-color: var(--card-bg) !important;
+  transform: translateY(-2px);
+  box-shadow: 7px 7px 14px var(--shadow-color), -7px -7px 14px var(--shadow-highlight);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .resources-grid {

@@ -12,7 +12,7 @@ const ServicesSection = () => {
       icon: "💻",
       description:
         "I build responsive, modern websites and web applications that work flawlessly across all devices. Using the latest technologies and best practices, I create solutions that are not only visually appealing but also performant and accessible.",
-      skills: ["HTML5/CSS3", "JavaScript/TypeScript", "React", "Next.js", "Node.js", "RESTful APIs"],
+      skills: ["HTML5/CSS3", "JavaScript/TypeScript", "React", "React", "Next.js", "Node.js", "RESTful APIs"],
       image:
         "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80",
     },
@@ -55,7 +55,7 @@ const ServicesSection = () => {
   const handleWhatsAppQuote = () => {
     const message = `Hi, I'm interested in your ${services[activeService].title} service. Can you provide more information?`
     const whatsappUrl = `https://wa.me/880171526536?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, "_blank")
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer")
   }
 
   return (
@@ -63,44 +63,59 @@ const ServicesSection = () => {
       <h2 className="section-title">What Do I Do?</h2>
 
       <div className="services-container">
-        <div className="services-tabs">
+        <div className="services-tabs" role="tablist" aria-label="Services">
           {services.map((service, index) => (
             <button
               key={index}
               className={`service-tab neomorphic ${activeService === index ? "active" : ""}`}
               onClick={() => setActiveService(index)}
+              role="tab"
+              aria-selected={activeService === index}
+              aria-controls={`service-panel-${index}`}
+              id={`service-tab-${index}`}
             >
-              <span className="service-icon">{service.icon}</span>
+              <span className="service-icon" aria-hidden="true">
+                {service.icon}
+              </span>
               <span className="service-title">{service.title}</span>
             </button>
           ))}
         </div>
 
-        <div className="service-content neomorphic">
-          <div className="service-image">
-            <img src={services[activeService].image || "/placeholder.svg"} alt={services[activeService].title} />
-          </div>
-          <h3>{services[activeService].title}</h3>
-          <p>{services[activeService].description}</p>
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className={`service-content neomorphic ${activeService === index ? "active" : "hidden"}`}
+            role="tabpanel"
+            id={`service-panel-${index}`}
+            aria-labelledby={`service-tab-${index}`}
+            hidden={activeService !== index}
+          >
+            <div className="service-image">
+              <img src={service.image || "/placeholder.svg"} alt={`${service.title} service illustration`} />
+            </div>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
 
-          <div className="service-skills">
-            <h4>Skills & Technologies:</h4>
-            <div className="skills-list">
-              {services[activeService].skills.map((skill, index) => (
-                <span key={index} className="skill-pill">
-                  {skill}
-                </span>
-              ))}
+            <div className="service-skills">
+              <h4>Skills & Technologies:</h4>
+              <div className="skills-list">
+                {service.skills.map((skill, skillIndex) => (
+                  <span key={skillIndex} className="skill-pill">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="service-cta">
+              <button className="neomorphic-button whatsapp-button" onClick={handleWhatsAppQuote}>
+                <span className="whatsapp-icon" aria-hidden="true"></span>
+                Let's Talk!
+              </button>
             </div>
           </div>
-
-          <div className="service-cta">
-            <button className="neomorphic-button whatsapp-button" onClick={handleWhatsAppQuote}>
-              <span className="whatsapp-icon"></span>
-              Request a Quote
-            </button>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   )

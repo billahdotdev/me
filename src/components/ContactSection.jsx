@@ -10,6 +10,7 @@ const ContactSection = () => {
     subject: "",
     message: "",
   })
+  const [formStatus, setFormStatus] = useState({ type: "", message: "" })
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -22,6 +23,25 @@ const ContactSection = () => {
   const handleWhatsAppSubmit = (e) => {
     e.preventDefault()
 
+    // Form validation
+    if (!formData.name || !formData.email || !formData.message) {
+      setFormStatus({
+        type: "error",
+        message: "Please fill in all required fields",
+      })
+      return
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      setFormStatus({
+        type: "error",
+        message: "Please enter a valid email address",
+      })
+      return
+    }
+
     // Prepare WhatsApp message with form data
     const message = `
 Name: ${formData.name}
@@ -32,7 +52,7 @@ Message: ${formData.message}
 
     // Open WhatsApp with pre-filled message
     const whatsappUrl = `https://wa.me/8801713401889?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, "_blank")
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer")
 
     // Reset form after opening WhatsApp
     setFormData({
@@ -40,6 +60,11 @@ Message: ${formData.message}
       email: "",
       subject: "",
       message: "",
+    })
+
+    setFormStatus({
+      type: "success",
+      message: "Your message has been sent via WhatsApp!",
     })
   }
 
@@ -57,7 +82,9 @@ Message: ${formData.message}
 
           <div className="contact-details">
             <div className="contact-item">
-              <div className="contact-icon">📱</div>
+              <div className="contact-icon" aria-hidden="true">
+                📱
+              </div>
               <div className="contact-text">
                 <h4>WhatsApp</h4>
                 <p>+880 171 340 1889</p>
@@ -65,7 +92,9 @@ Message: ${formData.message}
             </div>
 
             <div className="contact-item">
-              <div className="contact-icon">📧</div>
+              <div className="contact-icon" aria-hidden="true">
+                📧
+              </div>
               <div className="contact-text">
                 <h4>Email</h4>
                 <p>billahdotdev@gmail.com</p>
@@ -73,7 +102,9 @@ Message: ${formData.message}
             </div>
 
             <div className="contact-item">
-              <div className="contact-icon">📍</div>
+              <div className="contact-icon" aria-hidden="true">
+                📍
+              </div>
               <div className="contact-text">
                 <h4>Location</h4>
                 <p>Dhaka, Bangladesh | Manila, Philippines</p>
@@ -84,7 +115,7 @@ Message: ${formData.message}
           <div className="availability">
             <h4>Current Availability</h4>
             <div className="availability-status">
-              <span className="status-indicator available"></span>
+              <span className="status-indicator available" aria-hidden="true"></span>
               <p>Available for freelance projects</p>
             </div>
           </div>
@@ -93,7 +124,7 @@ Message: ${formData.message}
         <div className="contact-form neomorphic">
           <h3>Send Me a Message</h3>
 
-          <form onSubmit={handleWhatsAppSubmit}>
+          <form onSubmit={handleWhatsAppSubmit} noValidate>
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
@@ -104,6 +135,7 @@ Message: ${formData.message}
                 onChange={handleChange}
                 className="neomorphic-inset"
                 required
+                aria-required="true"
               />
             </div>
 
@@ -117,6 +149,7 @@ Message: ${formData.message}
                 onChange={handleChange}
                 className="neomorphic-inset"
                 required
+                aria-required="true"
               />
             </div>
 
@@ -130,6 +163,7 @@ Message: ${formData.message}
                 onChange={handleChange}
                 className="neomorphic-inset"
                 required
+                aria-required="true"
               />
             </div>
 
@@ -143,11 +177,18 @@ Message: ${formData.message}
                 className="neomorphic-inset"
                 rows="5"
                 required
+                aria-required="true"
               ></textarea>
             </div>
 
+            {formStatus.message && (
+              <div className={`form-status ${formStatus.type}`} role="alert">
+                {formStatus.message}
+              </div>
+            )}
+
             <button type="submit" className="neomorphic-button whatsapp-button">
-              <span className="whatsapp-icon"></span>
+              <span className="whatsapp-icon" aria-hidden="true"></span>
               Send Message via WhatsApp
             </button>
           </form>
