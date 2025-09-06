@@ -5,7 +5,7 @@ import Profile from '../components/Profile';
 import MyWork from '../components/MyWork';
 import MyServices from '../components/MyServices';
 import Footer from '../components/Footer';
-import './app.css';
+import './App.css';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
