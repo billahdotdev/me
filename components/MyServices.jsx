@@ -13,11 +13,10 @@ export default function MyServices({ handleServiceClick }) {
             onClick={() => handleServiceClick('product-design')}
           >
             <div className="service-info">
-              <h3>Product Design</h3>
+              <h3>Web Development</h3>
               <p>
-                I help you figure out what to build and how to build it. My
-                approach combines strong design fundamentals with practical
-                technical knowledge so we can ship something people love.
+                Let's build a website that truly connects you with your
+                customers, a digital space that feels just right.
               </p>
             </div>
           </div>
@@ -27,11 +26,10 @@ export default function MyServices({ handleServiceClick }) {
             onClick={() => handleServiceClick('web-development')}
           >
             <div className="service-info">
-              <h3>Web App Development</h3>
+              <h3>SEO/ GEO/ AEO</h3>
               <p>
-                I create web applications that do exactly what they need to do -
-                no bloat, no unnecessary features. Just clean code, thoughtful
-                interfaces, and solutions that make sense.
+                Want more people to find you online? I can help your website
+                appear when customers search for what you offer.
               </p>
             </div>
           </div>
@@ -41,11 +39,24 @@ export default function MyServices({ handleServiceClick }) {
             onClick={() => handleServiceClick('plugin-development')}
           >
             <div className="service-info">
-              <h3>Plugin Development</h3>
+              <h3>Digital/ Smart Marketing</h3>
               <p>
-                I build efficient plugins that solve real problems. Adobe and
-                Grammarly trust my code because it works reliably and respects
-                how people actually use software.
+                Let's grow your business online with smart digital marketing,
+                reaching your customers effectively.
+              </p>
+            </div>
+          </div>
+
+          <div
+            className="service-item"
+            onClick={() => handleServiceClick('plugin-development')}
+          >
+            <div className="service-info">
+              <h3>Brand Identity Design</h3>
+              <p>
+                I'll build a visual world for your brand, from eye-catching
+                logos to social media magic, so your audience instantly 'gets'
+                you.
               </p>
             </div>
           </div>
