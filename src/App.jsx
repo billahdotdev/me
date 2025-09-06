@@ -130,8 +130,7 @@ function App() {
 
   const getPopupContent = () => {
     const baseContent = {
-      image:
-        'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/popup-EP9aTiigeajV99a1kU0vZcFYMjDFGc.png',
+      image: 'https://avatars.githubusercontent.com/u/112099343?v=4',
       email: 'billahdotdev@gmail.com',
     };
 
@@ -139,8 +138,8 @@ function App() {
       case 'product-design':
         return {
           ...baseContent,
-          title: "Let's Design Something Amazing",
-          subtitle: 'From concept to pixel-perfect execution',
+          title: 'Ready to Build Together?',
+          subtitle: 'Clean code meets thoughtful design',
         };
       case 'web-development':
         return {
@@ -157,8 +156,8 @@ function App() {
       case 'your-website':
         return {
           ...baseContent,
-          title: 'Ready to Build Together?',
-          subtitle: 'Clean code meets thoughtful design',
+          title: "Let's Work Together",
+          subtitle: 'Drop me a line anytime',
         };
       default:
         return {
