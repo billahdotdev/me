@@ -67,8 +67,7 @@ export default function MyWork({ handleCompanyClick }) {
                 I created this website to show how powerful good branding can
                 be. Brandotory is where creativity meets strategy, helping
                 creators and entrepreneurs build brands that don’t just look
-                good but truly connect. It's a toolkit for anyone ready to build
-                something meaningful.
+                good but truly connect.
               </p>
             </div>
           </div>
