@@ -1,0 +1,161 @@
+/* Profile component styles */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #15c39a, #00d4ff);
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
+.dark-mode-toggle {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode-toggle:hover {
+  background: var(--hover-bg);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode-toggle svg {
+  transition: transform 0.3s ease;
+}
+
+.dark-mode-toggle:hover svg {
+  transform: rotate(15deg);
+}
+
+.hero-section {
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.profile-section {
+  text-align: center;
+}
+
+.profile-image-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: block;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
+}
+
+.profile-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #15c39a, #00d4ff);
+  opacity: 0.1;
+  transform: translate(-50%, -50%);
+  animation: pulse 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.05;
+  }
+}
+
+.name {
+  font-size: 48px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+
+.handle {
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.bio {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .dark-mode-toggle {
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .name {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .bio {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .profile-image-wrapper {
+    margin-bottom: 25px;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dark-mode-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .name {
+    font-size: 28px;
+  }
+
+  .bio {
+    font-size: 14px;
+  }
+}

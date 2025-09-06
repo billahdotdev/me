@@ -1,0 +1,135 @@
+/* MyWork component styles */
+.companies-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.company-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.company-item.clickable {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+
+.company-item.clickable:hover {
+  background: var(--hover-bg);
+  border-color: var(--border-color);
+  transform: translateY(-2px);
+}
+
+.company-logo {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Removed project-logo styles since projects no longer have logos */
+
+/* Removed individual project logo styles (ecommerce-logo, taskmanager-logo, weather-logo) */
+
+/* Keep existing adobe and grammarly styles for backward compatibility */
+.adobe-logo {
+  color: #ff0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grammarly-logo {
+  color: #15c39a;
+  background: #15c39a;
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+}
+
+/* Updated your-company-logo to display asterisk with simple styling */
+.your-company-logo {
+  color: green;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-item:hover .your-company-logo {
+  transform: scale(1.1);
+  background: var(--hover-bg);
+  border-color: var(--text-primary);
+}
+
+.company-info h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  text-decoration: underline;
+  color: var(--text-primary);
+}
+
+.company-info p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Added fourth animation for the new "Your Website" item */
+.companies-grid .company-item:nth-child(1) {
+  animation: fadeInUp 0.6s ease 0.4s both;
+}
+
+.companies-grid .company-item:nth-child(2) {
+  animation: fadeInUp 0.6s ease 0.6s both;
+}
+
+.companies-grid .company-item:nth-child(3) {
+  animation: fadeInUp 0.6s ease 0.8s both;
+}
+
+.companies-grid .company-item:nth-child(4) {
+  animation: fadeInUp 0.6s ease 1s both;
+}
+
+@media (max-width: 768px) {
+  .companies-grid {
+    gap: 40px;
+  }
+
+  .company-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    padding: 25px 15px;
+  }
+
+  .company-logo {
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .company-item {
+    padding: 20px 10px;
+  }
+}

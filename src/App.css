@@ -1,15 +1,303 @@
-.app-container {
+/* Added all shared styles and CSS variables from deleted portfolio.css */
+:root {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2a2a2a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #888;
+  --border-color: #333;
+  --hover-bg: rgba(255, 255, 255, 0.02);
+  --popup-bg: #2a2a2a;
+  --accent-color: #15c39a;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.2);
+}
+
+.light-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #666;
+  --border-color: #e0e0e0;
+  --hover-bg: rgba(0, 0, 0, 0.02);
+  --popup-bg: #ffffff;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-app {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.content {
-  flex: 1;
-}
-
-/* For smooth scrolling */
-html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  /* Added smooth scrolling for better UX */
   scroll-behavior: smooth;
 }
 
+.portfolio-app.loaded {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.portfolio-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.portfolio-section {
+  padding: 80px 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 60px;
+  text-align: center;
+  /* Added subtle animation for section titles */
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 0.5s both;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  /* Added backdrop blur for modern feel */
+  backdrop-filter: blur(4px);
+}
+
+.popup-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup {
+  width: 350px;
+  background: var(--popup-bg);
+  border-radius: 16px;
+  padding: 40px;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2001;
+  /* Enhanced shadow system for better depth */
+  box-shadow: 0 20px 60px var(--shadow-medium), 0 8px 25px var(--shadow-light);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: scale(0.8);
+  position: relative;
+}
+
+.popup::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.popup-left::before {
+  right: -24px;
+  border-left-color: var(--popup-bg);
+}
+
+.popup-right::before {
+  left: -24px;
+  border-right-color: var(--popup-bg);
+}
+
+.popup-overlay.active .popup {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.popup.closing {
+  opacity: 0 !important;
+  transform: scale(0.8) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+.popup-left {
+  transform-origin: right center;
+}
+
+.popup-right {
+  transform-origin: left center;
+}
+
+.popup-profile {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.popup-profile img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  /* Added subtle border and shadow for profile image */
+  border: 2px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow-light);
+}
+
+.popup h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: 400;
+}
+
+.popup-subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.popup-email {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 25px;
+  /* Added subtle background for email display */
+  background: var(--bg-secondary);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.copy-email-btn {
+  background: var(--border-color);
+  border: none;
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  min-width: 140px;
+  /* Enhanced button styling */
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.copy-email-btn:hover {
+  background: var(--text-muted);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-light);
+}
+
+.copy-email-btn.copied {
+  background: var(--accent-color);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Enhanced animation with better easing */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Improved responsive design with better breakpoints */
+@media (max-width: 768px) {
+  .portfolio-container {
+    padding: 0 20px;
+  }
+
+  .portfolio-section {
+    padding: 60px 0;
+    min-height: auto;
+  }
+
+  .section-title {
+    font-size: 20px;
+    margin-bottom: 40px;
+  }
+
+  .popup {
+    width: calc(100vw - 40px);
+    max-width: 320px;
+    padding: 30px 25px;
+  }
+
+  .popup::before {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-container {
+    padding: 0 16px;
+  }
+
+  .portfolio-section {
+    padding: 40px 0;
+  }
+
+  .popup {
+    width: calc(100vw - 32px);
+    padding: 24px 20px;
+  }
+
+  .popup-profile img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .copy-email-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}
+
+/* Added focus states for better accessibility */
+.copy-email-btn:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Added reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-app,
+  .popup,
+  .copy-email-btn,
+  .section-title {
+    animation: none;
+    transition: none;
+  }
+
+  .portfolio-app {
+    scroll-behavior: auto;
+  }
+}
