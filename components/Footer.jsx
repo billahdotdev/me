@@ -30,9 +30,7 @@ export default function Footer() {
             >
               GitHub
             </a>
-            <a href="billahdotdev@gmail.com" aria-label="Send email">
-              Email
-            </a>
+           
           </div>
           <div className="brand">
             <div className="brand-icon">MB</div>
