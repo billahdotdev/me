@@ -22,7 +22,7 @@ export default function MyWork({ handleCompanyClick }) {
             }
           >
             <div className="company-info">
-              <h3>bllah.dev</h3>
+              <h3>billah.dev</h3>
               <p>
                 This website was built to tell my story. Here, you'll get to
                 know who I am, what I do, and the services I offer. It's more
