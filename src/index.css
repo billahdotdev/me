@@ -1,16 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Dark theme colors inspired by design */
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --surface: #1e293b;
+  --surface-hover: #334155;
+  --border: #475569;
+  --muted: #64748b;
+  --muted-foreground: #94a3b8;
+  --accent: #10b981;
+  --accent-hover: #059669;
+}
+
+.light {
+  /* Light theme colors */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --surface: #f8fafc;
+  --surface-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --muted: #64748b;
+  --muted-foreground: #64748b;
+  --accent: #10b981;
+  --accent-hover: #059669;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-  line-height: 1.6;
-  overflow-x: hidden;
-  min-height: 100vh;
+html {
+  scroll-behavior: smooth;
 }
 
-#root {
-  min-height: 100vh;
+body {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Inconsolata, "Roboto Mono", monospace;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Animation delays */
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+.animate-delay-400 {
+  animation-delay: 0.4s;
+}
+.animate-delay-600 {
+  animation-delay: 0.6s;
+}
+.animate-delay-800 {
+  animation-delay: 0.8s;
+}
+.animate-delay-1000 {
+  animation-delay: 1s;
+}
+.animate-delay-1200 {
+  animation-delay: 1.2s;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-fade-in-up,
+  .animate-pulse-custom {
+    animation: none;
+  }
+
+  * {
+    transition: none !important;
+  }
 }
