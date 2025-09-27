@@ -90,7 +90,7 @@ export default function MyWork({ handleCompanyClick }) {
                 <div
                   className={`w-12 h-12 bg-surface border border-border rounded-lg flex items-center justify-center text-2xl font-bold transition-all duration-300 hover-glow ${'text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-white group-hover:shadow-lg group-hover:shadow-accent/25'}`}
                 >
-                  *
+                  <span className="text-green-700">*</span>
                 </div>
               </div>
               <div className="flex-1">
