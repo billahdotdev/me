@@ -39,7 +39,8 @@ html {
 }
 
 body {
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Monaco, Inconsolata, "Roboto Mono", monospace;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Monaco, Inconsolata,
+    'Roboto Mono', monospace;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -66,6 +67,68 @@ body {
   background: var(--muted);
 }
 
+/* Added custom animations for subtle interactions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseCustom {
+  0%,
+  100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes gentleBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-pulse-custom {
+  animation: pulseCustom 3s ease-in-out infinite;
+}
+
+.animate-slide-in-scale {
+  animation: slideInScale 0.4s ease-out forwards;
+}
+
+.animate-gentle-bounce {
+  animation: gentleBounce 0.3s ease-out;
+}
+
 /* Animation delays */
 .animate-delay-200 {
   animation-delay: 0.2s;
@@ -86,6 +149,35 @@ body {
   animation-delay: 1.2s;
 }
 
+/* Added hover effects for interactive elements */
+.hover-lift {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease-out;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+/* Specific glow effect for light mode elements */
+.light .hover-glow:hover {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced asterisk visibility with better contrast */
+.group:hover .text-accent {
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -93,7 +185,9 @@ body {
   }
 
   .animate-fade-in-up,
-  .animate-pulse-custom {
+  .animate-pulse-custom,
+  .animate-slide-in-scale,
+  .animate-gentle-bounce {
     animation: none;
   }
 

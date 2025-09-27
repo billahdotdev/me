@@ -1,31 +1,32 @@
-"use client"
+'use client';
 
 export default function MyServices({ handleServiceClick }) {
   const services = [
     {
-      id: "web-development",
-      title: "Web Development",
+      id: 'web-development',
+      title: 'Web Development',
       description:
         "Let's build a website that truly connects you with your customers, a digital space that feels just right.",
     },
     {
-      id: "seo-optimization",
-      title: "SEO/ GEO/ AEO",
+      id: 'seo-optimization',
+      title: 'SEO/ GEO/ AEO',
       description:
-        "Want more people to find you online? I can help your website appear when customers search for what you offer.",
+        'Want more people to find you online? I can help your website appear when customers search for what you offer.',
     },
     {
-      id: "digital-marketing",
-      title: "Digital/ Smart Marketing",
-      description: "Let's grow your business online with smart digital marketing, reaching your customers effectively.",
+      id: 'digital-marketing',
+      title: 'Digital/ Smart Marketing',
+      description:
+        "Let's grow your business online with smart digital marketing, reaching your customers effectively.",
     },
     {
-      id: "brand-identity",
-      title: "Brand Identity Design",
+      id: 'brand-identity',
+      title: 'Brand Identity Design',
       description:
         "I'll build a visual world for your brand, from eye-catching logos to social media magic, so your audience instantly 'gets' you.",
     },
-  ]
+  ];
 
   return (
     <section className="py-24 px-6">
@@ -38,7 +39,7 @@ export default function MyServices({ handleServiceClick }) {
           {services.map((service, index) => (
             <div
               key={service.id}
-              className="group cursor-pointer transition-all duration-300 hover:translate-y-[-2px] animate-fade-in-up"
+              className="group cursor-pointer transition-all duration-300 hover:translate-y-[-2px] animate-fade-in-up hover-lift"
               style={{ animationDelay: `${0.8 + index * 0.2}s` }}
               onClick={(e) => handleServiceClick(service.id, e)}
             >
@@ -46,12 +47,14 @@ export default function MyServices({ handleServiceClick }) {
                 <h3 className="text-xl font-medium text-foreground group-hover:text-accent transition-colors duration-300 mb-4">
                   {service.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed max-w-2xl">{service.description}</p>
+                <p className="text-muted-foreground leading-relaxed max-w-2xl">
+                  {service.description}
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

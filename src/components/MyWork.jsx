@@ -46,7 +46,7 @@ export default function MyWork({ handleCompanyClick }) {
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group cursor-pointer transition-all duration-300 hover:translate-y-[-4px] animate-fade-in-up"
+              className="group cursor-pointer transition-all duration-300 hover:translate-y-[-4px] animate-fade-in-up hover-lift"
               style={{ animationDelay: `${0.6 + index * 0.2}s` }}
               onClick={(e) => handleProjectClick(project.id, project.url, e)}
             >
@@ -82,13 +82,15 @@ export default function MyWork({ handleCompanyClick }) {
 
           {/* Your Website CTA */}
           <div
-            className="group cursor-pointer transition-all duration-300 hover:translate-y-[-4px] animate-fade-in-up animate-delay-1200"
+            className="group cursor-pointer transition-all duration-300 hover:translate-y-[-4px] animate-fade-in-up animate-delay-1200 hover-lift"
             onClick={(e) => handleCompanyClick('your-website', e)}
           >
             <div className="flex flex-col md:flex-row md:items-start gap-6 p-6 rounded-xl border border-dashed border-border hover:border-accent hover:bg-surface transition-all duration-300">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 bg-surface border border-border rounded-lg flex items-center justify-center text-accent text-2xl font-bold group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-300">
-                  <span className="text-green-700">*</span>
+                <div
+                  className={`w-12 h-12 bg-surface border border-border rounded-lg flex items-center justify-center text-2xl font-bold transition-all duration-300 hover-glow ${'text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-white group-hover:shadow-lg group-hover:shadow-accent/25'}`}
+                >
+                  *
                 </div>
               </div>
               <div className="flex-1">

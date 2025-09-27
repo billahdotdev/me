@@ -1,3 +1,5 @@
+'use client';
+
 export default function Footer() {
   const socialLinks = [
     {
@@ -29,7 +31,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.label}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm font-mono"
+                className="text-muted-foreground hover:text-foreground transition-all duration-300 text-sm font-mono hover:-translate-y-0.5 hover-lift"
               >
                 {link.name}
               </a>
@@ -37,7 +39,7 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-3 text-muted-foreground text-sm font-mono">
-            <div className="w-6 h-6 bg-foreground text-background rounded flex items-center justify-center text-xs font-bold">
+            <div className="w-6 h-6 bg-foreground text-background rounded flex items-center justify-center text-xs font-bold hover-lift">
               MB
             </div>
             Masum Billah
