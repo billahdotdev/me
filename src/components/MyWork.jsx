@@ -11,7 +11,7 @@ export default function MyWork({ handleCompanyClick }) {
       id: 'billah-dev',
       title: 'billah.dev',
       description:
-        "This website was built to tell my story. Here, you'll get to know who I am, what I do, and the services I offer. It's more than just a portfolio—it's a glimpse into my journey as a creator.",
+        "This website was built to tell my story. Here, you'll get to know who I am, what I do, and the services I offer. It's more than just a portfolio, it's a glimpse into my journey as a creator.",
       url: 'https://billah.dev',
       year: '2024',
     },
