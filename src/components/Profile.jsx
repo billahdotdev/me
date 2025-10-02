@@ -57,9 +57,8 @@ export default function Profile({ isDarkMode, toggleDarkMode }) {
 
           <div className="max-w-2xl mx-auto">
             <p className="text-lg md:text-xl leading-relaxed text-muted-foreground font-mono">
-              I'm a web developer passionate about crafting accessible,
-              pixel-perfect digital experiences that blend thoughtful design
-              with robust engineering.
+              I'm a web developer passionate about turning ideas into simple,
+              responsive, and functional websites that help businesses grow.
             </p>
           </div>
         </div>
