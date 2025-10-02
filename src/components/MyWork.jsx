@@ -19,7 +19,7 @@ export default function MyWork({ handleCompanyClick }) {
       id: 'dhakateez',
       title: 'DhakaTeez',
       description:
-        "I created this landing page before launching my clothing venture as a 'coming soon' preview. It reflects how serious I am about my business and the passion I put into my work.",
+        "I created this landing page before launching my clothing venture as a 'coming soon' preview. It reflects how serious I am about my business and the passion I put into my work and projects, and how open I am to adapt and work to fit your needs.",
       url: 'https://billahdotdev.github.io/dhakateez/',
       year: '2024',
     },
@@ -27,9 +27,9 @@ export default function MyWork({ handleCompanyClick }) {
       id: 'brandotory',
       title: 'Brandotory',
       description:
-        'I created this website to show how powerful good branding can be. Brandotory is where creativity meets strategy, helping creators and entrepreneurs build brands that truly connect.',
+        'I created this website to show how powerful good branding can be. Brandotory is where creativity meets strategy, helping creators and entrepreneurs build brands that truly connect with their audience.',
       url: 'https://billahdotdev.github.io/brandotory/',
-      year: '2023',
+      year: '2024',
     },
   ];
 
@@ -89,13 +89,13 @@ export default function MyWork({ handleCompanyClick }) {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-medium text-foreground group-hover:text-accent transition-colors duration-300 mb-3">
-                  Your Website
+                  Your Own Website
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Your business has a story, and I'm here to help you tell it
                   online beautifully and effectively. If you have an idea you're
                   passionate about, I'll help bring it to life with stunning,
-                  user-friendly websites that truly connect with your audience.
+                  user-friendly websites that truly keeps itself fresh in your audience's minds.
                 </p>
               </div>
             </div>
