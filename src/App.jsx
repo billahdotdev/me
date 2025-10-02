@@ -4,347 +4,176 @@ import { useState, useEffect } from 'react';
 import Profile from './components/Profile';
 import MyWork from './components/MyWork';
 import MyServices from './components/MyServices';
-import TestUserWebsite from './components/TestUserWebsite';
+
 import Footer from './components/Footer';
-import './index.css';
 
-function App() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const [activePopup, setActivePopup] = useState(null);
-  const [emailCopied, setEmailCopied] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [popupPosition, setPopupPosition] = useState({
-    x: 0,
-    y: 0,
-    direction: 'right',
+export default function App() {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('darkMode');
+      return saved !== null ? saved === 'true' : true;
+    }
+    return true;
   });
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
 
   useEffect(() => {
-    document.documentElement.className = isDarkMode ? 'dark' : 'light';
+    const root = document.documentElement;
+    if (isDarkMode) {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('darkMode', isDarkMode.toString());
   }, [isDarkMode]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY;
-      const maxHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (scrolled / maxHeight) * 100;
-      setScrollProgress(progress);
-    };
-
-    const handleLoad = () => {
-      setTimeout(() => setIsLoaded(true), 100);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('load', handleLoad);
-    handleLoad();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('load', handleLoad);
-    };
-  }, []);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
 
-  const handleCompanyClick = (company, event) => {
-    if (event) {
-      const rect = event.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const direction = centerX > window.innerWidth / 2 ? 'left' : 'right';
-
-      setPopupPosition({
-        x: centerX,
-        y: centerY,
-        direction,
-        elementRect: rect,
-      });
-    }
-
-    if (company === 'your-website') {
-      if (activePopup === 'your-website') {
-        closePopup();
-      } else {
-        setActivePopup('your-website');
-        setIsClosing(false);
-      }
-    }
+  const copyEmail = () => {
+    navigator.clipboard.writeText('billahdotdev@gmail.com');
+    setEmailCopied(true);
+    setTimeout(() => setEmailCopied(false), 2000);
   };
 
-  const handleServiceClick = (service, event) => {
-    if (event) {
-      const rect = event.currentTarget.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const direction = centerX > window.innerWidth / 2 ? 'left' : 'right';
-
-      setPopupPosition({
-        x: centerX,
-        y: centerY,
-        direction,
-        elementRect: rect,
-      });
-    }
-
-    if (activePopup === service) {
-      closePopup();
-    } else {
-      setActivePopup(service);
-      setIsClosing(false);
-    }
+  const handleItemClick = (id, event) => {
+    event.preventDefault();
+    setShowContactModal(true);
+    document.body.style.overflow = 'hidden';
   };
 
-  const closePopup = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setActivePopup(null);
-      setIsClosing(false);
-      setEmailCopied(false);
-    }, 400);
+  const closeContactModal = () => {
+    setShowContactModal(false);
+    setEmailCopied(false);
+    document.body.style.overflow = 'auto';
   };
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText('billahdotdev@gmail.com');
-      setEmailCopied(true);
-      setTimeout(() => setEmailCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy email:', err);
-    }
-  };
-
-  const getPopupContent = () => {
-    const baseContent = {
-      image: 'https://avatars.githubusercontent.com/u/112099343?v=4',
-      email: 'billahdotdev@gmail.com',
-    };
-
-    switch (activePopup) {
-      case 'product-design':
-        return {
-          ...baseContent,
-          title: 'Ready to Build Together?',
-          subtitle: 'Clean code meets thoughtful design',
-        };
-      case 'web-development':
-        return {
-          ...baseContent,
-          title: 'Ready to Build Together?',
-          subtitle: 'Clean code meets thoughtful design',
-        };
-      case 'plugin-development':
-        return {
-          ...baseContent,
-          title: 'Need a Reliable Plugin?',
-          subtitle: 'Efficient solutions that just work',
-        };
-      case 'your-website':
-        return {
-          ...baseContent,
-          title: "Let's Work Together",
-          subtitle: 'Drop me a line anytime',
-        };
-      default:
-        return {
-          ...baseContent,
-          title: "Let's Work Together",
-          subtitle: 'Drop me a line anytime',
-        };
-    }
-  };
-
-  const getPopupStyle = () => {
-    const popupWidth = 350;
-    const popupHeight = 400;
-    const margin = 20;
-    const offset = 30;
-
-    let x, y;
-    const { direction } = popupPosition;
-
-    if (direction === 'left') {
-      x = popupPosition.x - popupWidth - offset;
-    } else {
-      x = popupPosition.x + offset;
-    }
-
-    y = popupPosition.y - popupHeight / 2;
-
-    if (x < margin) {
-      x = margin;
-    }
-    if (x + popupWidth > window.innerWidth - margin) {
-      x = window.innerWidth - popupWidth - margin;
-    }
-
-    if (y < margin) {
-      y = margin;
-    }
-    if (y + popupHeight > window.innerHeight - margin) {
-      y = window.innerHeight - popupHeight - margin;
-    }
-
-    y += window.scrollY;
-
-    return {
-      position: 'absolute',
-      left: `${x}px`,
-      top: `${y}px`,
-      transform: 'none',
-      transformOrigin: direction === 'left' ? 'right center' : 'left center',
-    };
-  };
-
-  const popupContent = getPopupContent();
 
   return (
-    <div
-      className={`min-h-screen font-mono transition-all duration-300 bg-background text-foreground ${
-        isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
-      }`}
-    >
-      <Profile
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
-        scrollProgress={scrollProgress}
-        isLoaded={isLoaded}
-      />
+    <div className="min-h-screen transition-colors duration-300">
+      <Profile isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
-      <MyWork handleCompanyClick={handleCompanyClick} />
+      <MyWork handleCompanyClick={handleItemClick} />
 
-      <MyServices handleServiceClick={handleServiceClick} />
-
-      <TestUserWebsite />
+      <MyServices handleServiceClick={handleItemClick} />
 
       <Footer />
 
-      {/* Contact Popup */}
-      {activePopup && (
+      {showContactModal && (
         <div
-          className={`fixed inset-0 bg-black/80 backdrop-blur-sm z-50 transition-all duration-300 ${
-            activePopup ? 'opacity-100 visible' : 'opacity-0 invisible'
-          }`}
-          onClick={closePopup}
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-6 animate-fade-in"
+          onClick={closeContactModal}
         >
           <div
-            className={`${
-              isDarkMode
-                ? 'bg-surface border-border text-foreground'
-                : 'bg-white border-gray-200 text-gray-900 shadow-xl'
-            } rounded-2xl p-10 transition-all duration-400 backdrop-blur-xl animate-slide-in-scale hover-glow ${
-              isClosing ? 'opacity-0 scale-90' : 'opacity-100 scale-100'
-            } ${
-              popupPosition.direction === 'left'
-                ? 'origin-right'
-                : 'origin-left'
-            }`}
+            className="relative max-w-md w-full animate-scale-in"
             onClick={(e) => e.stopPropagation()}
-            style={activePopup ? getPopupStyle() : {}}
           >
-            <button
-              className={`absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
-                isDarkMode
-                  ? 'hover:bg-surface-hover text-muted-foreground hover:text-foreground'
-                  : 'hover:bg-gray-100 text-gray-500 hover:text-gray-900'
-              } hover:rotate-90 hover-lift`}
-              onClick={closePopup}
-              aria-label="Close popup"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
+            {/* Glowing border effect */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-3xl blur opacity-75 animate-pulse"></div>
 
-            <div className="text-center">
-              <img
-                src={popupContent.image || '/placeholder.svg'}
-                alt="Masum Billah"
-                className={`w-20 h-20 rounded-full mx-auto mb-5 border-2 ${
-                  isDarkMode ? 'border-border' : 'border-gray-200'
-                } shadow-lg hover-lift`}
-              />
-              <h3
-                className={`text-xl font-medium mb-3 ${
-                  isDarkMode ? 'text-foreground' : 'text-gray-900'
-                }`}
-              >
-                {popupContent.title}
-              </h3>
-              {popupContent.subtitle && (
-                <p
-                  className={`text-sm mb-5 italic ${
-                    isDarkMode ? 'text-muted-foreground' : 'text-gray-600'
-                  }`}
-                >
-                  {popupContent.subtitle}
-                </p>
-              )}
-              <p
-                className={`text-sm mb-6 px-3 py-2 rounded-lg font-mono ${
-                  isDarkMode
-                    ? 'bg-surface text-muted-foreground'
-                    : 'bg-gray-50 text-gray-700 border border-gray-200'
-                }`}
-              >
-                {popupContent.email}
-              </p>
+            {/* Main modal content */}
+            <div className="relative bg-surface rounded-3xl p-8 shadow-2xl">
               <button
-                className={`flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-sm transition-all duration-200 min-w-[140px] hover-lift ${
-                  emailCopied
-                    ? 'bg-accent text-white scale-105 animate-gentle-bounce'
-                    : isDarkMode
-                    ? 'bg-surface-hover text-foreground hover:bg-border hover:-translate-y-0.5 hover:shadow-lg'
-                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200 hover:-translate-y-0.5 hover:shadow-lg border border-gray-200'
-                }`}
-                onClick={copyEmail}
+                onClick={closeContactModal}
+                className="absolute top-6 right-6 text-muted-foreground hover:text-foreground transition-all duration-200 hover:rotate-90 hover:scale-110"
+                aria-label="Close"
               >
-                {emailCopied ? (
-                  <>
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <polyline points="20,6 9,17 4,12" />
-                    </svg>
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                    </svg>
-                    Copy Email
-                  </>
-                )}
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
+                  <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
               </button>
+
+              <div className="text-center">
+                {/* Profile image with gradient border */}
+                <div className="mb-6 relative inline-block">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 rounded-full blur-sm opacity-75"></div>
+                  <img
+                    src="https://avatars.githubusercontent.com/u/112099343?v=4"
+                    alt="Masum Billah"
+                    className="relative w-28 h-28 rounded-full border-4 border-surface shadow-xl"
+                  />
+                </div>
+
+                <h3 className="text-3xl font-semibold text-foreground mb-2 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+                  Let's Work Together
+                </h3>
+
+                <p className="text-muted-foreground italic mb-8 text-sm">
+                  Drop me a line anytime ✨
+                </p>
+
+                {/* Email display with gradient border */}
+                <div className="relative mb-6 group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 opacity-0 group-hover:opacity-100 blur transition-opacity duration-300"></div>
+                  <div className="relative bg-background border border-border rounded-2xl p-5">
+                    <p className="text-foreground text-base break-all">
+                      billahdotdev@gmail.com
+                    </p>
+                  </div>
+                </div>
+
+                {/* Copy button with gradient background */}
+                <button
+                  onClick={copyEmail}
+                  className="relative inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-medium transition-all duration-200 w-full justify-center group overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 transition-transform duration-300 group-hover:scale-105"></div>
+                  <div className="relative flex items-center gap-2 text-white">
+                    {emailCopied ? (
+                      <>
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="animate-bounce"
+                        >
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                        <span className="font-semibold">Email Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="group-hover:scale-110 transition-transform"
+                        >
+                          <rect
+                            x="9"
+                            y="9"
+                            width="13"
+                            height="13"
+                            rx="2"
+                            ry="2"
+                          />
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                        <span className="font-semibold">Copy Email</span>
+                      </>
+                    )}
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -352,5 +181,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

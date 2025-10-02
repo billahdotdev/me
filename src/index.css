@@ -1,197 +1,125 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
 
-:root {
-  /* Dark theme colors inspired by design */
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --surface: #1e293b;
-  --surface-hover: #334155;
-  --border: #475569;
-  --muted: #64748b;
-  --muted-foreground: #94a3b8;
-  --accent: #10b981;
-  --accent-hover: #059669;
+/* Properly configure Tailwind colors using CSS variables */
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 26 32 44;
+    --surface: 247 250 252;
+    --surface-hover: 237 242 247;
+    --border: 226 232 240;
+    --muted-foreground: 74 85 104;
+    --muted: 113 128 150;
+    --accent: 59 130 246;
+  }
+
+  .dark {
+    --background: 15 20 25;
+    --foreground: 255 255 255;
+    --surface: 26 31 46;
+    --surface-hover: 36 41 56;
+    --border: 45 55 72;
+    --muted-foreground: 160 174 192;
+    --muted: 113 128 150;
+    --accent: 59 130 246;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* Apply JetBrains Mono font globally */
+    font-family: 'JetBrains Mono', monospace;
+  }
 }
 
-.light {
-  /* Light theme colors */
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --surface: #f8fafc;
-  --surface-hover: #f1f5f9;
-  --border: #e2e8f0;
-  --muted: #64748b;
-  --muted-foreground: #64748b;
-  --accent: #10b981;
-  --accent-hover: #059669;
+/* Define Tailwind theme colors */
+@theme {
+  --color-background: rgb(var(--background));
+  --color-foreground: rgb(var(--foreground));
+  --color-surface: rgb(var(--surface));
+  --color-surface-hover: rgb(var(--surface-hover));
+  --color-border: rgb(var(--border));
+  --color-muted-foreground: rgb(var(--muted-foreground));
+  --color-muted: rgb(var(--muted));
+  --color-accent: rgb(var(--accent));
+  /* Add JetBrains Mono as the default font family */
+  --font-family-sans: 'JetBrains Mono', monospace;
+  --font-family-mono: 'JetBrains Mono', monospace;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Minimal animations for "less is more" */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Add spin animation for loading state */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out;
+}
+
+/* Add spin animation class */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Monaco, Inconsolata,
-    'Roboto Mono', monospace;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background);
-  color: var(--foreground);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--surface);
+  background: rgb(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: rgb(var(--border));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--muted);
-}
-
-/* Added custom animations for subtle interactions */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulseCustom {
-  0%,
-  100% {
-    opacity: 0.1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.2;
-    transform: scale(1.05);
-  }
-}
-
-@keyframes slideInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-@keyframes gentleBounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-  opacity: 0;
-}
-
-.animate-pulse-custom {
-  animation: pulseCustom 3s ease-in-out infinite;
-}
-
-.animate-slide-in-scale {
-  animation: slideInScale 0.4s ease-out forwards;
-}
-
-.animate-gentle-bounce {
-  animation: gentleBounce 0.3s ease-out;
-}
-
-/* Animation delays */
-.animate-delay-200 {
-  animation-delay: 0.2s;
-}
-.animate-delay-400 {
-  animation-delay: 0.4s;
-}
-.animate-delay-600 {
-  animation-delay: 0.6s;
-}
-.animate-delay-800 {
-  animation-delay: 0.8s;
-}
-.animate-delay-1000 {
-  animation-delay: 1s;
-}
-.animate-delay-1200 {
-  animation-delay: 1.2s;
-}
-
-/* Added hover effects for interactive elements */
-.hover-lift {
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-}
-
-.hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-.hover-glow {
-  transition: box-shadow 0.3s ease-out;
-}
-
-.hover-glow:hover {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
-}
-
-/* Specific glow effect for light mode elements */
-.light .hover-glow:hover {
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Enhanced asterisk visibility with better contrast */
-.group:hover .text-accent {
-  color: var(--accent);
-  text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .animate-fade-in-up,
-  .animate-pulse-custom,
-  .animate-slide-in-scale,
-  .animate-gentle-bounce {
-    animation: none;
-  }
-
-  * {
-    transition: none !important;
-  }
+  background: rgb(var(--muted));
 }

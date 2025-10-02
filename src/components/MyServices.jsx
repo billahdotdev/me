@@ -31,16 +31,15 @@ export default function MyServices({ handleServiceClick }) {
   return (
     <section className="py-24 px-6">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-light mb-16 text-foreground animate-fade-in-up animate-delay-600">
+        <h2 className="text-3xl md:text-4xl font-light mb-16 text-foreground">
           Services I Offer
         </h2>
 
         <div className="space-y-8">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <div
               key={service.id}
-              className="group cursor-pointer transition-all duration-300 hover:translate-y-[-2px] animate-fade-in-up hover-lift"
-              style={{ animationDelay: `${0.8 + index * 0.2}s` }}
+              className="group cursor-pointer transition-all duration-300 hover-lift"
               onClick={(e) => handleServiceClick(service.id, e)}
             >
               <div className="p-6 rounded-xl border border-transparent hover:border-border hover:bg-surface transition-all duration-300">

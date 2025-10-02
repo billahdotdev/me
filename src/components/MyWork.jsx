@@ -2,9 +2,7 @@
 
 export default function MyWork({ handleCompanyClick }) {
   const handleProjectClick = (projectId, githubUrl, event) => {
-    // Open GitHub repository in new tab
     window.open(githubUrl, '_blank', 'noopener,noreferrer');
-    // Still trigger popup for additional project details
     handleCompanyClick(projectId, event);
   };
 
@@ -38,16 +36,15 @@ export default function MyWork({ handleCompanyClick }) {
   return (
     <section className="py-24 px-6">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-light mb-16 text-foreground animate-fade-in-up animate-delay-400">
+        <h2 className="text-3xl md:text-4xl font-light mb-16 text-foreground">
           Projects I've Created
         </h2>
 
         <div className="space-y-16">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <div
               key={project.id}
-              className="group cursor-pointer transition-all duration-300 hover:translate-y-[-4px] animate-fade-in-up hover-lift"
-              style={{ animationDelay: `${0.6 + index * 0.2}s` }}
+              className="group cursor-pointer transition-all duration-300 hover-lift"
               onClick={(e) => handleProjectClick(project.id, project.url, e)}
             >
               <div className="flex flex-col md:flex-row md:items-start gap-6 p-6 rounded-xl border border-transparent hover:border-border hover:bg-surface transition-all duration-300">
@@ -80,17 +77,14 @@ export default function MyWork({ handleCompanyClick }) {
             </div>
           ))}
 
-          {/* Your Website CTA */}
           <div
-            className="group cursor-pointer transition-all duration-300 hover:translate-y-[-4px] animate-fade-in-up animate-delay-1200 hover-lift"
+            className="group cursor-pointer transition-all duration-300 hover-lift"
             onClick={(e) => handleCompanyClick('your-website', e)}
           >
             <div className="flex flex-col md:flex-row md:items-start gap-6 p-6 rounded-xl border border-dashed border-border hover:border-accent hover:bg-surface transition-all duration-300">
               <div className="flex-shrink-0">
-                <div
-                  className={`w-12 h-12 bg-surface border border-border rounded-lg flex items-center justify-center text-2xl font-bold transition-all duration-300 hover-glow ${'text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-white group-hover:shadow-lg group-hover:shadow-accent/25'}`}
-                >
-                  <span className="text-green-700">*</span>
+                <div className="w-12 h-12 bg-surface border border-border rounded-lg flex items-center justify-center text-2xl font-bold transition-all duration-300 text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
+                  <span>*</span>
                 </div>
               </div>
               <div className="flex-1">
